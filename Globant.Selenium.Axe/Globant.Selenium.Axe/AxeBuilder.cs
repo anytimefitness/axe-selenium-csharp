@@ -17,6 +17,10 @@ namespace Globant.Selenium.Axe
         private static readonly AxeBuilderOptions DefaultOptions = new AxeBuilderOptions {ScriptProvider = new EmbeddedResourceAxeProvider()};
 
     	 public string Options { get; set; } = "null";
+        private bool ShouldSkipFrames { get; set; } = false;
+
+        private bool ShouldSkipInject { get; set; } = false;
+    
 
         /// <summary>
         /// Initialize an instance of <see cref="AxeBuilder"/>
@@ -50,6 +54,11 @@ namespace Globant.Selenium.Axe
         /// <param name="args"></param>
         private AxeResult Execute(string command, params object[] args)
         {
+            if (!ShouldSkipInject)
+            {
+                _webDriver.Inject(_axeBuilderOptions.ScriptProvider, injectIntoFrames:!ShouldSkipFrames);
+            }
+
             object response = ((IJavaScriptExecutor)_webDriver).ExecuteAsyncScript(command, args);
             var jObject = JObject.FromObject(response);
             return new AxeResult(jObject);   
@@ -73,6 +82,24 @@ namespace Globant.Selenium.Axe
         /// <param name="selectors">Any valid CSS selectors</param>
         /// <returns></returns>
         public AxeBuilder Exclude(params string[] selectors)
+        public AxeBuilder SkipIFrames()
+        {
+            ShouldSkipFrames = true;
+
+            return this;
+        }
+
+        /// <summary>
+        /// The analyzer needs to inject a large chunk of javascript into the page before it can analyze.
+        /// If you've already analyzed something on the page and haven't navigated away since then,
+        /// you can make the test go faster by not taking the time to inject the script again.
+        /// </summary>
+        public AxeBuilder SkipInject()
+        {
+            ShouldSkipInject = true;
+
+            return this;
+        }
         {
             _includeExcludeManager.Exclude(selectors);
             return this;
