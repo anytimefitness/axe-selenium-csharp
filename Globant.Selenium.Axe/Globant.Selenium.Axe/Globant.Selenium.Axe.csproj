@@ -52,8 +52,10 @@
   <ItemGroup>
     <Compile Include="AxeBuilder.cs" />
     <Compile Include="AxeBuilderOptions.cs" />
-    <Compile Include="AxeResult.cs" />
-    <Compile Include="AxeResultItem.cs" />
+    <Compile Include="AxeDto\AxeError.cs" />
+    <Compile Include="AxeDto\AxeResponse.cs" />
+    <Compile Include="AxeDto\AxeResult.cs" />
+    <Compile Include="AxeDto\AxeResultItem.cs" />
     <Compile Include="CachedContentDownloader.cs" />
     <Compile Include="ContentDownloader.cs" />
     <Compile Include="EmbeddedResourceAxeProvider.cs" />
@@ -68,7 +70,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="AxeResultNode.cs" />
+    <Compile Include="AxeDto\AxeResultNode.cs" />
     <Compile Include="WebDriverExtensions.cs" />
     <Compile Include="WebDriverInjectorExtensions.cs" />
   </ItemGroup>
