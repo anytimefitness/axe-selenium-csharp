@@ -39,7 +39,7 @@ namespace Globant.Selenium.Axe.Test
         {
             //arrange
             var driver = new Mock<IWebDriver>();
-            var jsExecutor =driver.As<IJavaScriptExecutor>();
+            var jsExecutor = driver.As<IJavaScriptExecutor>();
             var targetLocator = new Mock<ITargetLocator>();
 
             driver
@@ -51,29 +51,35 @@ namespace Globant.Selenium.Axe.Test
 
             jsExecutor
                 .Setup(js => js.ExecuteAsyncScript(It.IsAny<string>(), It.IsAny<object[]>()))
-                .Returns(new
-                {
-                    violations = new object[] { },
-                    passes = new object[] { },
-                    inapplicable = new object[] { },
-                    incomplete = new object[] { },
-                    timestamp = DateTimeOffset.Now,
-                    url = "www.test.com",
-                });
+                .Returns(
+                    new
+                    {
+                        results = new
+                        {
+                            violations = new object[] { },
+                            passes = new object[] { },
+                            inapplicable = new object[] { },
+                            incomplete = new object[] { },
+                            timestamp = DateTimeOffset.Now,
+                            url = "www.test.com",
+                        }
+                    });
 
             var builder = new AxeBuilder(driver.Object);
             var result = builder.Analyze();
 
             result.Should().NotBeNull();
-            result.Inapplicable.Should().NotBeNull();
-            result.Incomplete.Should().NotBeNull();
-            result.Passes.Should().NotBeNull();
-            result.Violations.Should().NotBeNull();
+            result.Error.Should().BeNull();
+            result.Results.Should().NotBeNull();
+            result.Results.Inapplicable.Should().NotBeNull();
+            result.Results.Incomplete.Should().NotBeNull();
+            result.Results.Passes.Should().NotBeNull();
+            result.Results.Violations.Should().NotBeNull();
 
-            result.Inapplicable.Length.Should().Be(0);
-            result.Incomplete.Length.Should().Be(0);
-            result.Passes.Length.Should().Be(0);
-            result.Violations.Length.Should().Be(0);
+            result.Results.Inapplicable.Length.Should().Be(0);
+            result.Results.Incomplete.Length.Should().Be(0);
+            result.Results.Passes.Length.Should().Be(0);
+            result.Results.Violations.Length.Should().Be(0);
 
             driver.VerifyAll();
             targetLocator.VerifyAll();

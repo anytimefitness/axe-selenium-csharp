@@ -78,7 +78,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AxeBuilderTest.cs" />
+    <Compile Include="IncludeExcludeManagerTests.cs" />
     <Compile Include="IntegrationTests.cs" />
+    <Compile Include="OptionsManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
