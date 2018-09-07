@@ -50,7 +50,7 @@ namespace Globant.Selenium.Axe
         /// Indicate if we have more than one entry on include list or we have entries on exclude list
         /// </summary>
         /// <returns>True or False</returns>
-        public bool HasMoreThanOneSelectorsToIncludeOrSomeToExclude()
+        private bool HasMoreThanOneSelectorsToIncludeOrSomeToExclude()
         {
             bool hasMoreThanOneSelectorsToInclude = _includeList != null && _includeList.Count > 1;
             bool hasSelectorsToExclude = _excludeList != null && _excludeList.Count > 0;
@@ -62,13 +62,13 @@ namespace Globant.Selenium.Axe
         /// Indicate we have one entry on the include list
         /// </summary>
         /// <returns>True or False</returns>
-        public bool HasOneItemToInclude() => _includeList != null && _includeList.Count == 1;
+        private bool HasOneItemToInclude() => _includeList != null && _includeList.Count == 1;
 
         /// <summary>
         /// Get first selector of the first entry on include list
         /// </summary>
         /// <returns></returns>
-        public string GetFirstItemToInclude()
+        private string GetFirstItemToInclude()
         {
             if (_includeList == null || _includeList.Count == 0)
                 throw new InvalidOperationException("You must add at least one selector to include");
@@ -77,12 +77,24 @@ namespace Globant.Selenium.Axe
         }
 
         /// <summary>
-        /// Serialize this instance on JSON format
+        /// Gets the json object which can be passed into the axe.run call.
         /// </summary>
-        /// <returns>This instance serialized in JSON format</returns>
-        public string ToJson()
+        public string GetContextJson()
         {
-            return JsonConvert.SerializeObject(this, JsonSerializerSettings);
+            string command;
+            if (HasMoreThanOneSelectorsToIncludeOrSomeToExclude())
+            {
+                command = JsonConvert.SerializeObject(this, JsonSerializerSettings);
+            }else if (HasOneItemToInclude())
+            {
+                command = $"'{GetFirstItemToInclude().Replace("'", "")}'";
+            }
+            else
+            {
+                command = "document";
+            }
+
+            return command;
         }
 
         private static void ValidateParameters(string[] selectors)
