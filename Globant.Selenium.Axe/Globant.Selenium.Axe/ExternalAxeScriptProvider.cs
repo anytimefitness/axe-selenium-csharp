@@ -12,16 +12,19 @@ namespace Globant.Selenium.Axe
         private readonly Uri _scriptUri;
         private readonly IContentDownloader _contentDownloader;
 
-        public ExternalAxeScriptProvider(WebClient webClient, Uri scriptUri)
+        public ExternalAxeScriptProvider(Uri scriptUri)
         {
-            if (webClient == null)
-                throw new ArgumentNullException(nameof(webClient));
+            using (WebClient webClient = new WebClient())
+            {
+                if (webClient == null)
+                    throw new ArgumentNullException(nameof(webClient));
 
-            if (scriptUri == null)
-                throw new ArgumentNullException(nameof(scriptUri));
+                if (scriptUri == null)
+                    throw new ArgumentNullException(nameof(scriptUri));
 
-            _scriptUri = scriptUri;
-            _contentDownloader = new CachedContentDownloader(webClient);
+                _scriptUri = scriptUri;
+                _contentDownloader = new CachedContentDownloader(webClient);
+            }
         }
 
         public string GetScript() => _contentDownloader.GetContent(_scriptUri);
