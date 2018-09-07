@@ -3,7 +3,7 @@ Tools for using aXe for web accessibility testing with C# and Selenium. Inspired
 
 This project born as a need to have a clean .NET wrapper for aXe.
 
-**Work in progress!! Stay tunned.**
+**Work in progress!! Stay tuned.**
 
 ## Getting Started
 
@@ -39,6 +39,11 @@ Run only rules in the Wcag2AA catgory (note, this isn't a superset of Wcag2A... 
 ```csharp
 var response = new AxeBuilder(WebDriver).OptionsIncludeTags(AxeTags.Wcag2AA).IncludeElementsMatching(new ByCssSelector("div").InIFrameIdentifiedByCssSelector("#iframeId")).Analyze();
 ```
+
+### Axe stuff
+https://cdnjs.com/libraries/axe-core is where you can find the latest axe.min.js
+
+https://www.deque.com/axe/documentation/ is where you can find the axe documentation that I referenced a bunch while working on the builder
 
 ## Thanks
 Specially thanks to @jdmesalosada to make this happen and to always improve our jobs.
