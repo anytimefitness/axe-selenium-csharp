@@ -86,7 +86,7 @@ namespace Globant.Selenium.Axe.Test
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void GivenIncludedAndExcludedRulesAndNoTags_WhenIGenerateOptionsJson_ThenTheCorrectJsonIsReturned()
+        public void GivenIncludedAndExcludedRulesAndNoTags_WhenIGenerateOptionsJson_ThenAnInvalidOperationtionExceptionOccurs()
         {
             //arrange
             var OptionsManager = new OptionsManager();

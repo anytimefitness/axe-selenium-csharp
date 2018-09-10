@@ -83,7 +83,7 @@ namespace Globant.Selenium.Axe.Test
         }
 
         [TestMethod]
-        public void GivenThatOneSelectorIsIncludedFromAnIFram_WhenIGetContextJson_ThenTheResultShouldHaveTheSelectorAndIFrameSelectorInTheRightFormat()
+        public void GivenThatOneSelectorIsIncludedFromAnIFrame_WhenIGetContextJson_ThenTheResultShouldHaveTheSelectorAndIFrameSelectorInTheRightFormat()
         {
             //arrange
             var includeExcludeManager = new IncludeExcludeManager();
