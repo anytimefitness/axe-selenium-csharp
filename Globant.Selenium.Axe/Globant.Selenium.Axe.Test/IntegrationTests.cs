@@ -3,6 +3,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium;
 using FluentAssertions;
 using System;
+using Globant.Selenium.Axe.AxeDto;
 
 namespace Globant.Selenium.Axe.Test
 {
@@ -32,8 +33,8 @@ namespace Globant.Selenium.Axe.Test
         public void TestAnalyzeTarget()
         {
             _webDriver.Navigate().GoToUrl(TargetTestUrl);
-            AxeResult results = _webDriver.Analyze();
-            results.Should().NotBeNull(nameof(results));
+            AxeResponse response = _webDriver.Analyze();
+            response.Should().NotBeNull(nameof(response));
         }
 
     }

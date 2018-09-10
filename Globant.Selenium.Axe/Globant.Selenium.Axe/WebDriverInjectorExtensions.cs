@@ -13,7 +13,8 @@ namespace Globant.Selenium.Axe
         /// </summary>
         /// <param name="driver">WebDriver instance to inject into</param>
         /// <param name="scriptProvider">Provider that get the aXe script to inject.</param>
-        internal static void Inject(this IWebDriver driver, IAxeScriptProvider scriptProvider)
+        /// <param name="injectIntoFrames">if true, then find all iFrames recursively and inject into them.</param>
+        internal static void Inject(this IWebDriver driver, IAxeScriptProvider scriptProvider, bool injectIntoFrames = true)
         {
             if (scriptProvider == null)
                 throw new ArgumentNullException(nameof(scriptProvider));
@@ -22,7 +23,11 @@ namespace Globant.Selenium.Axe
             IList<IWebElement> parents = new List<IWebElement>();
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
 
-            InjectIntoFrames(driver, script, parents);
+            if (injectIntoFrames)
+            {
+                InjectIntoFrames(driver, script, parents);
+            }
+
             driver.SwitchTo().DefaultContent();
             js.ExecuteScript(script);
         }

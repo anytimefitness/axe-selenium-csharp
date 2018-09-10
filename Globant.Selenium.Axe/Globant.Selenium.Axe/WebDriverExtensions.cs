@@ -1,11 +1,12 @@
 ﻿using OpenQA.Selenium;
 using System;
+using Globant.Selenium.Axe.AxeDto;
 
 namespace Globant.Selenium.Axe
 {
     public static class WebDriverExtensions
     {
-        public static AxeResult Analyze(this IWebDriver webDriver)
+        public static AxeResponse Analyze(this IWebDriver webDriver)
         {
             if (webDriver == null)
                 throw new ArgumentNullException(nameof(webDriver));
@@ -14,7 +15,7 @@ namespace Globant.Selenium.Axe
             return axeBuilder.Analyze();
         }
 
-        public static AxeResult Analyze(this IWebDriver webDriver, AxeBuilderOptions axeBuilderOptions)
+        public static AxeResponse Analyze(this IWebDriver webDriver, AxeBuilderOptions axeBuilderOptions)
         {
             if (webDriver == null)
                 throw new ArgumentNullException(nameof(webDriver));
@@ -23,7 +24,7 @@ namespace Globant.Selenium.Axe
             return axeBuilder.Analyze();
         }
 
-        public static AxeResult Analyze(this IWebDriver webDriver, IWebElement context)
+        public static AxeResponse Analyze(this IWebDriver webDriver, IWebElement context)
         {
             if (webDriver == null)
                 throw new ArgumentNullException(nameof(webDriver));
@@ -35,7 +36,7 @@ namespace Globant.Selenium.Axe
             return axeBuilder.Analyze(context);
         }
 
-        public static AxeResult Analyze(this IWebDriver webDriver, IWebElement context, AxeBuilderOptions axeBuilderOptions)
+        public static AxeResponse Analyze(this IWebDriver webDriver, IWebElement context, AxeBuilderOptions axeBuilderOptions)
         {
             if (webDriver == null)
                 throw new ArgumentNullException(nameof(webDriver));
