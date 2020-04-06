@@ -5,14 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Globant.Selenium.Axe.OptionsHelper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Globant.Selenium.Axe.Test
 {
-    [TestClass]
     public class OptionsManagerTests
     {
-        [TestMethod]
+        [Test]
         public void GivenNoOptionsConfigured_WhenIGenerateOptionsJson_ThenTheEmptyObjectNotationIsReturned()
         {
             //arrange
@@ -25,7 +24,7 @@ namespace Globant.Selenium.Axe.Test
             optionsJson.Should().BeEquivalentTo("{}");
         }
 
-        [TestMethod]
+        [Test]
         public void GivenTags_WhenIGenerateOptionsJson_ThenTheCorrectJsonIsReturned()
         {
             //arrange
@@ -39,7 +38,7 @@ namespace Globant.Selenium.Axe.Test
             optionsJson.Should().BeEquivalentTo("{\"runOnly\":{\"type\":\"tag\",\"values\":[\"a\",\"b\"]}}");
         }
 
-        [TestMethod]
+        [Test]
         public void GivenRules_WhenIGenerateOptionsJson_ThenTheCorrectJsonIsReturned()
         {
             //arrange
@@ -53,7 +52,7 @@ namespace Globant.Selenium.Axe.Test
             optionsJson.Should().BeEquivalentTo("{\"runOnly\":{\"type\":\"rule\",\"values\":[\"a\",\"b\"]}}");
         }
 
-        [TestMethod]
+        [Test]
         public void GivenTagsAndRules_WhenIGenerateOptionsJson_ThenTheCorrectJsonIsReturned()
         {
             //arrange
@@ -68,7 +67,7 @@ namespace Globant.Selenium.Axe.Test
             optionsJson.Should().BeEquivalentTo("{\"rules\":{\"a\":{\"enabled\":true},\"b\":{\"enabled\":true}},\"runOnly\":{\"type\":\"tag\",\"values\":[\"tag1\"]}}");
         }
 
-        [TestMethod]
+        [Test]
         public void GivenTagsAndRulesAndExcludedRules_WhenIGenerateOptionsJson_ThenTheCorrectJsonIsReturned()
         {
             //arrange
@@ -84,8 +83,7 @@ namespace Globant.Selenium.Axe.Test
             optionsJson.Should().BeEquivalentTo("{\"rules\":{\"a\":{\"enabled\":true},\"b\":{\"enabled\":true},\"c\":{\"enabled\":false},\"d\":{\"enabled\":false}},\"runOnly\":{\"type\":\"tag\",\"values\":[\"tag1\"]}}");
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Test]
         public void GivenIncludedAndExcludedRulesAndNoTags_WhenIGenerateOptionsJson_ThenAnInvalidOperationtionExceptionOccurs()
         {
             //arrange
@@ -94,10 +92,13 @@ namespace Globant.Selenium.Axe.Test
             OptionsManager.ExcludedRules("c", "d");
 
             // act
-            var optionsJson = OptionsManager.GenerateOptionsJson();
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                var optionsJson = OptionsManager.GenerateOptionsJson();
+            });
         }
 
-        [TestMethod]
+        [Test]
         public void GivenExcludedRules_WhenIGenerateOptionsJson_ThenTheCorrectJsonIsReturned()
         {
             //arrange

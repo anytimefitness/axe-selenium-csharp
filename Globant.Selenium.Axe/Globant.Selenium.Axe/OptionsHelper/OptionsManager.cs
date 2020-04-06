@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Globant.Selenium.Axe.OptionsHelper
 {
@@ -29,15 +27,15 @@ namespace Globant.Selenium.Axe.OptionsHelper
 
                 foreach (var includedRule in _includedRules)
                 {
-                    axeOptions.Rules.Add(includedRule, new RuleOverride {Enabled = true});
+                    axeOptions.Rules.Add(includedRule, new RuleOverride { Enabled = true });
                 }
 
                 foreach (var excludedRule in _excludedRules)
                 {
-                    axeOptions.Rules.Add(excludedRule, new RuleOverride{Enabled = false});
+                    axeOptions.Rules.Add(excludedRule, new RuleOverride { Enabled = false });
                 }
             }
-            else if(_includedRules.Count > 0)
+            else if (_includedRules.Count > 0)
             {
                 axeOptions.RunOnly = new RunOnly
                 {
@@ -49,7 +47,7 @@ namespace Globant.Selenium.Axe.OptionsHelper
                     throw new InvalidOperationException("If you specify included rules, and not tags, then only specify the ones that you want, not the ones you don't.");
                 }
             }
-            else if(_excludedRules.Count > 0)
+            else if (_excludedRules.Count > 0)
             {
                 foreach (var excludedRule in _excludedRules)
                 {
@@ -72,7 +70,7 @@ namespace Globant.Selenium.Axe.OptionsHelper
 
         public void IncludeTags(params AxeTags[] tags)
         {
-            _includedTags.AddRange(tags.Select(tag=> tag.GetStringValue()).ToList());
+            _includedTags.AddRange(tags.Select(tag => tag.GetStringValue()).ToList());
         }
 
         public void IncludeTags(params string[] tags)

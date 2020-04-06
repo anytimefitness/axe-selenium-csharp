@@ -1,6 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
 
 namespace Globant.Selenium.Axe
 {
