@@ -1,35 +1,34 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium.Firefox;
+﻿using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium;
 using FluentAssertions;
 using System;
 using Globant.Selenium.Axe.AxeDto;
+using NUnit.Framework;
 
 namespace Globant.Selenium.Axe.Test
 {
-    [TestClass]
     public class IntegrationTests
     {
         private IWebDriver _webDriver;
         private const string TargetTestUrl = "https://www.facebook.com/";
 
-        [TestInitialize]
-        public void Initialize()
+        [SetUp]
+        public void SetupBeforeEachTest()
         {
             _webDriver = new FirefoxDriver();
-            _webDriver.Manage().Timeouts().SetScriptTimeout(TimeSpan.FromMinutes(3));
+            _webDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(30);
             _webDriver.Manage().Window.Maximize();
         }
 
-        [TestCleanup]
-        public virtual void TearDown()
+        [TearDown]
+        public virtual void TeardownAfterEachTest()
         {
             _webDriver.Quit();
             _webDriver.Dispose();
         }
 
-        [TestMethod]
-        [TestCategory("Integration")]
+        [Test]
+        [Category("Integration")]
         public void TestAnalyzeTarget()
         {
             _webDriver.Navigate().GoToUrl(TargetTestUrl);

@@ -1,40 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using Moq;
-using OpenQA.Selenium.Firefox;
+using NUnit.Framework;
 
 namespace Globant.Selenium.Axe.Test
 {
-    [TestClass]
     public class AxeBuilderTest
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void ThrowWhenDriverIsNull()
         {
             //arrange / act /assert
-            var axeBuilder = new AxeBuilder(null);
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var axeBuilder = new AxeBuilder(null);
+            });
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Test]
         public void ThrowWhenOptionsAreNull()
         {
             //arrange
             var driver = new Mock<IWebDriver>();
 
             // act / assert
-            var axeBuilder = new AxeBuilder(driver.Object, null);
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var axeBuilder = new AxeBuilder(driver.Object, null);
+            });
         }
 
-        [TestMethod]
+        [Test]
         public void ShouldExecuteAxeScript()
         {
             //arrange

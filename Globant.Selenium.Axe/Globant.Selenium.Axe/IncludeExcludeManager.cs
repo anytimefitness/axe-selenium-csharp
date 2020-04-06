@@ -20,7 +20,7 @@ namespace Globant.Selenium.Axe
             DefaultValueHandling = DefaultValueHandling.Ignore
         };
 
-        
+
         private List<string[]> _includeList = new List<string[]>();
         private List<string[]> _excludeList = new List<string[]>();
 

@@ -1,17 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
+using NUnit.Framework;
 
 namespace Globant.Selenium.Axe.Test
 {
-    [TestClass]
     public class IncludeExcludeManagerTests
     {
-        [TestMethod]
+        [Test]
         public void GivenNoExtraSettings_WhenIGetContextJson_ThenTheResultShouldBeTheWholeDocument()
         {
             //arrange
@@ -24,7 +23,7 @@ namespace Globant.Selenium.Axe.Test
             contextJson.Should().BeEquivalentTo("document");
         }
 
-        [TestMethod]
+        [Test]
         public void GivenThatOneSelectorIsIncluded_WhenIGetContextJson_ThenTheResultShouldIncludeThatSelector()
         {
             //arrange
@@ -38,7 +37,7 @@ namespace Globant.Selenium.Axe.Test
             contextJson.Should().BeEquivalentTo("{\"include\":[[\"bar\"]]}");
         }
 
-        [TestMethod]
+        [Test]
         public void GivenThatTwoSelectorsAreIncluded_WhenIGetContextJson_ThenTheResultShouldIncludeEachSelectorInTheirOwnArray()
         {
             //arrange
@@ -53,7 +52,7 @@ namespace Globant.Selenium.Axe.Test
             contextJson.Should().BeEquivalentTo("{\"include\":[[\"foo\"],[\"bar\"]]}");
         }
 
-        [TestMethod]
+        [Test]
         public void GivenThatOneSelectorIsExcluded_WhenIGetContextJson_ThenTheResultShouldExcludeThatSelector()
         {
             //arrange
@@ -67,7 +66,7 @@ namespace Globant.Selenium.Axe.Test
             contextJson.Should().BeEquivalentTo("{\"exclude\":[[\"foobar\"]]}");
         }
 
-        [TestMethod]
+        [Test]
         public void GivenThatOneSelectorIsIncludedAndOneIsExcluded_WhenIGetContextJson_ThenTheResultShouldHaveBothIncludeAndExclude()
         {
             //arrange
@@ -82,7 +81,7 @@ namespace Globant.Selenium.Axe.Test
             contextJson.Should().BeEquivalentTo("{\"include\":[[\"foo\"]],\"exclude\":[[\"bar\"]]}");
         }
 
-        [TestMethod]
+        [Test]
         public void GivenThatOneSelectorIsIncludedFromAnIFrame_WhenIGetContextJson_ThenTheResultShouldHaveTheSelectorAndIFrameSelectorInTheRightFormat()
         {
             //arrange

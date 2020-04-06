@@ -20,18 +20,18 @@ namespace Globant.Selenium.Axe
 
         private readonly OptionsManager _optionsManager = new OptionsManager();
 
-        private static readonly AxeBuilderOptions DefaultOptions = new AxeBuilderOptions {ScriptProvider = new EmbeddedResourceAxeProvider()};
+        private static readonly AxeBuilderOptions DefaultOptions = new AxeBuilderOptions { ScriptProvider = new EmbeddedResourceAxeProvider() };
 
         private bool ShouldSkipFrames { get; set; } = false;
 
         private bool ShouldSkipInject { get; set; } = false;
-    
+
 
         /// <summary>
         /// Initialize an instance of <see cref="AxeBuilder"/>
         /// </summary>
         /// <param name="webDriver">Selenium driver to use</param>
-        public AxeBuilder(IWebDriver webDriver): this(webDriver, DefaultOptions)
+        public AxeBuilder(IWebDriver webDriver) : this(webDriver, DefaultOptions)
         {
         }
 
@@ -61,14 +61,14 @@ namespace Globant.Selenium.Axe
         {
             if (!ShouldSkipInject)
             {
-                _webDriver.Inject(_axeBuilderOptions.ScriptProvider, injectIntoFrames:!ShouldSkipFrames);
+                _webDriver.Inject(_axeBuilderOptions.ScriptProvider, injectIntoFrames: !ShouldSkipFrames);
             }
 
             object response = ((IJavaScriptExecutor)_webDriver).ExecuteAsyncScript(command, args);
-            
+
             var jObject = JObject.FromObject(response);
             var responseString = jObject.ToString();
-            
+
             var settings = new JsonSerializerSettings()
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
@@ -87,7 +87,7 @@ namespace Globant.Selenium.Axe
             {
                 _includeExcludeManager.IncludeSelector(new ByCssSelector(selector));
             }
-            
+
             return this;
         }
 
@@ -112,7 +112,7 @@ namespace Globant.Selenium.Axe
             {
                 _includeExcludeManager.ExcludeSelector(new ByCssSelector(selector));
             }
-            
+
             return this;
         }
 
@@ -203,7 +203,7 @@ namespace Globant.Selenium.Axe
         {
             string context = _includeExcludeManager.GetContextJson();
             string options = _optionsManager.GenerateOptionsJson();
-            
+
             var command = GetCallbackBoilerPlate() + $"axe.run({context}, {options}, axeCallback);";
 
             return Execute(command);

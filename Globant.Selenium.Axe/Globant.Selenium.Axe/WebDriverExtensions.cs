@@ -1,6 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using Globant.Selenium.Axe.AxeDto;
+using OpenQA.Selenium;
 using System;
-using Globant.Selenium.Axe.AxeDto;
 
 namespace Globant.Selenium.Axe
 {
