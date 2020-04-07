@@ -13,6 +13,7 @@
     <PackageProjectUrl>https://github.com/javnov/axe-selenium-csharp</PackageProjectUrl>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <PackageTags>Globant selenium axe ada webdriver</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>embedded</DebugType>
