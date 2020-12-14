@@ -6,11 +6,13 @@
     <Product>Globant.Selenium.Axe</Product>
     <Description>Tools for using aXe for web accessibility testing with C# and Selenium.</Description>
     <Copyright>Copyright 2017</Copyright>
-    <Version>1.0.0.0</Version>
+    <Version>1.0.1</Version>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>embedded</DebugType>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <Authors>Globant,jdmesalosada,javnov</Authors>
     <PackageId>Globant.Selenium.Axe</PackageId>
-    <PackageProjectUrl>https://github.com/javnov/axe-selenium-csharp</PackageProjectUrl>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <PackageTags>Globant selenium axe ada webdriver</PackageTags>
   </PropertyGroup>
@@ -36,6 +38,10 @@
     <None Include="Resources\axe.min.js" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
   </ItemGroup>
