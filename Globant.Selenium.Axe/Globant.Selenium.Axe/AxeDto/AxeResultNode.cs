@@ -8,8 +8,8 @@ namespace Globant.Selenium.Axe
         public List<string> Target { get; set; }
         public string Html { get; set; }
         public string Impact { get; set; }
-        public List<object> Any { get; set; }
-        public List<object> All { get; set; }
-        public List<object> None { get; set; }
+        public List<AxeResultNodeCheck> Any { get; set; }
+        public List<AxeResultNodeCheck> All { get; set; }
+        public List<AxeResultNodeCheck> None { get; set; }
     }
 }

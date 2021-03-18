@@ -92,7 +92,21 @@ namespace Globant.Selenium.Axe.Test
             var contextJson = includeExcludeManager.GetContextJson();
 
             //Assert
-            contextJson.Should().BeEquivalentTo("{\"include\":[[\"foo\",\"#iFrame\"]]}");
+            contextJson.Should().BeEquivalentTo("{\"include\":[[\"#iFrame\",\"foo\"]]}");
+        }
+
+        [Test]
+        public void GivenThatOneSelectorIsIncludedFromAnNestedIFrame_WhenIGetContextJson_ThenTheResultShouldHaveTheSelectorAndIFrameSelectorsInTheRightFormat()
+        {
+            //arrange
+            var includeExcludeManager = new IncludeExcludeManager();
+            includeExcludeManager.IncludeSelector(new ByCssSelector("foo").InIFrameIdentifiedByCssSelector("#iFrame").InIFrameIdentifiedByCssSelector("#iFrame2"));
+
+            // act
+            var contextJson = includeExcludeManager.GetContextJson();
+
+            //Assert
+            contextJson.Should().BeEquivalentTo("{\"include\":[[\"#iFrame2\",\"#iFrame\",\"foo\"]]}");
         }
     }
 }

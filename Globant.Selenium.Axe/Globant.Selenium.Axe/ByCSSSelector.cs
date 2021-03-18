@@ -21,7 +21,7 @@ namespace Globant.Selenium.Axe
         /// </summary>
         public ByCssSelector InIFrameIdentifiedByCssSelector(string cssSelectorThatIdentifiesIFrame)
         {
-            orderedSelectorList.Add(cssSelectorThatIdentifiesIFrame);
+            orderedSelectorList.Insert(0, cssSelectorThatIdentifiesIFrame);
             return this;
         }
 
