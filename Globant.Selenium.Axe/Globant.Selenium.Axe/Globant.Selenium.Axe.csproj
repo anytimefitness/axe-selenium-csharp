@@ -6,7 +6,7 @@
     <Product>Globant.Selenium.Axe</Product>
     <Description>Tools for using aXe for web accessibility testing with C# and Selenium.</Description>
     <Copyright>Copyright 2017</Copyright>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>embedded</DebugType>
