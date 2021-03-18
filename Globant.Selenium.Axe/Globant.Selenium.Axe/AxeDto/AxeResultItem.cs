@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 
 namespace Globant.Selenium.Axe
@@ -27,6 +28,30 @@ namespace Globant.Selenium.Axe
             foreach (var axeResultNode in Nodes)
             {
                 stringBuilder.AppendLine($"\t\t{axeResultNode.Html}");
+                if (axeResultNode.All.Any())
+                {
+                    stringBuilder.AppendLine($"\t\t\tAll:");
+                    foreach(var axeResultNodeCheck in axeResultNode.All)
+                    {
+                        stringBuilder.AppendLine($"\t\t\t\t{axeResultNodeCheck.Message}");
+                    }
+                }
+                if (axeResultNode.Any.Any())
+                {
+                    stringBuilder.AppendLine($"\t\t\tAny:");
+                    foreach (var axeResultNodeCheck in axeResultNode.Any)
+                    {
+                        stringBuilder.AppendLine($"\t\t\t\t{axeResultNodeCheck.Message}");
+                    }
+                }
+                if (axeResultNode.None.Any())
+                {
+                    stringBuilder.AppendLine($"\t\t\tNone:");
+                    foreach (var axeResultNodeCheck in axeResultNode.None)
+                    {
+                        stringBuilder.AppendLine($"\t\t\t\t{axeResultNodeCheck.Message}");
+                    }
+                }
             }
 
             stringBuilder.AppendLine();
