@@ -1,0 +1,17 @@
+﻿name: Publish Package - Globant-Selenium-Axe
+
+on:
+    push:
+        branches:
+            - master # Default release branch
+        paths:
+            - Globant.Selenium.Axe/Globant.Selenium.Axe
+    workflow_dispatch:
+
+jobs:
+    publish:
+        uses: anytimefitness/seb-github-actions-workflows/.github/workflows/nuget-build-push-net4.yml@v6
+        with:
+            WORKING_DIR: "Globant.Selenium.Axe/Globant.Selenium.Axe"
+            CSPROJ_NAME: "Globant.Selenium.Axe.csproj"
+        secrets: inherit
