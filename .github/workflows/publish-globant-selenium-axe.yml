@@ -39,7 +39,7 @@ jobs:
 
       - name: Pack
         working-directory: "Globant.Selenium.Axe/Globant.Selenium.Axe"
-        run: dotnet pack "Globant.Selenium.Axe/Globant.Selenium.Axe.csproj" -c Release -o out --no-restore --nologo
+        run: dotnet pack "Globant.Selenium.Axe.csproj" -c Release -o out --no-restore --nologo
 
       # Here, we are not expecting more than one nuget pkg, but,
       # "dotnet push package" is not working in windows-2019 runner, so I hacked a bit to work the NuGet push this way.
