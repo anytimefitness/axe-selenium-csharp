@@ -20,7 +20,7 @@ jobs:
           dotnet-version: 3.x.x
           source-url: https://nuget.pkg.github.com/anytimefitness/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{ secrets.GH_PACKAGE_READ_KEY }}
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # There are few projects which are using more than one sln in a repository, to make sure all those sln's built successfully
       # looping through the repo and collecting the sln files to restore nuget packages
