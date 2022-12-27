@@ -1,4 +1,4 @@
-﻿name: Publish Package - Globant-Selenium-Axe
+name: Publish Package - Globant-Selenium-Axe
 
 on:
     push:
