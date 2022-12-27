@@ -5,13 +5,47 @@ on:
         branches:
             - master # Default release branch
         paths:
-            - Globant.Selenium.Axe/Globant.Selenium.Axe
+            - Globant.Selenium.Axe/Globant.Selenium.Axe/**
     workflow_dispatch:
 
 jobs:
-    publish:
-        uses: anytimefitness/seb-github-actions-workflows/.github/workflows/nuget-build-push-net4.yml@v6
+  publish:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v3
+        # This .net framework installation is nothing to do with framework but is just used to configure nuget source and api-key
+      - name: Setup .NET environment
+        uses: actions/setup-dotnet@v2
         with:
-            WORKING_DIR: "Globant.Selenium.Axe/Globant.Selenium.Axe"
-            CSPROJ_NAME: "Globant.Selenium.Axe.csproj"
-        secrets: inherit
+          dotnet-version: 3.x.x
+          source-url: https://nuget.pkg.github.com/anytimefitness/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GH_PACKAGE_READ_KEY }}
+
+      # There are few projects which are using more than one sln in a repository, to make sure all those sln's built successfully
+      # looping through the repo and collecting the sln files to restore nuget packages
+      - name: Restore
+        shell: pwsh
+        run: |
+          $sln=(Get-ChildItem -Recurse -Path * -Filter *.sln)
+          foreach($sol in $sln){
+            write-host $sol
+            nuget restore $sol
+          }
+          
+      - name: Build
+        working-directory: "Globant.Selenium.Axe/Globant.Selenium.Axe"
+        run: dotnet build --configuration Release --no-restore --nologo
+
+      - name: Pack
+        working-directory: "Globant.Selenium.Axe/Globant.Selenium.Axe"
+        run: dotnet pack "Globant.Selenium.Axe/Globant.Selenium.Axe.csproj" -c Release -o out --no-restore --nologo
+
+      # Here, we are not expecting more than one nuget pkg, but,
+      # "dotnet push package" is not working in windows-2019 runner, so I hacked a bit to work the NuGet push this way.
+      - name: Push to GitHub Packages
+        working-directory: "Globant.Selenium.Axe/Globant.Selenium.Axe"
+        shell: pwsh
+        run: |
+          $npkg=(Get-ChildItem -Recurse -Path * -Filter *.nupkg)
+          dotnet nuget push $npkg
