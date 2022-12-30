@@ -35,7 +35,7 @@ jobs:
           
       - name: Build
         working-directory: "Globant.Selenium.Axe/Globant.Selenium.Axe"
-        run: dotnet build -c --no-restore --nologo
+        run: dotnet build -c Release --no-restore --nologo
 
       - name: Pack
         working-directory: "Globant.Selenium.Axe/Globant.Selenium.Axe"
