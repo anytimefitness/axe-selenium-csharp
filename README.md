@@ -1,5 +1,6 @@
-> [!Important]
-> Archiving because this is no longer supported or in use.
+> [!Note]
+> This is still in use for a few legacy test suites.  If those references go away, then this can go away.
+> https://github.com/search?q=org%3Aanytimefitness++globant.&type=code
 
 # axe-selenium-csharp
 Tools for using aXe for web accessibility testing with C# and Selenium. Inspired on [axe-selenium-java](https://github.com/dequelabs/axe-selenium-java)
