@@ -1,3 +1,6 @@
+> [!Important]
+> Archiving because this is no longer supported or in use.
+
 # axe-selenium-csharp
 Tools for using aXe for web accessibility testing with C# and Selenium. Inspired on [axe-selenium-java](https://github.com/dequelabs/axe-selenium-java)
 
